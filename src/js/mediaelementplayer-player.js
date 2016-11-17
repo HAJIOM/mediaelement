@@ -825,14 +825,18 @@
 					}
 
 					t.globalBind('click', function(e) {
-						if ($(e.target).is('.mejs-container') || t.container.has($(e.target)).length) {
-							t.container.addClass('mejs-keyboard-inactive');
+						if ($(e.target).is('.mejs-container')) {
+							$(e.target).addClass('mejs-keyboard-inactive');
+						} else if ($(e.target).closest('.mejs-container').length) {
+							$(e.target).closest('.mejs-container').addClass('mejs-keyboard-inactive');
 						}
 					});
 
 					t.globalBind('keydown', function(e) {
-						if ($(e.target).is('.mejs-container') || t.container.has($(e.target)).length) {
-							t.container.removeClass('mejs-keyboard-inactive');
+						if ($(e.target).is('.mejs-container')) {
+							$(e.target).removeClass('mejs-keyboard-inactive');
+						} else if ($(e.target).closest('.mejs-container').length) {
+							$(e.target).closest('.mejs-container').removeClass('mejs-keyboard-inactive');
 						}
 					});
 
