@@ -821,15 +821,20 @@
 									t.startControlsTimer(t.options.controlsTimeoutMouseLeave);
 								}
 							}
-						}).on('click', function() {
-
-							$(this).addClass('mejs-keyboard-inactive');
-
-						}).on('keydown', function() {
-							
-							$(this).removeClass('mejs-keyboard-inactive');
 						});
 					}
+
+					t.globalBind('click', function(e) {
+						if ($(e.target).is('.mejs-container') || t.container.has($(e.target)).length) {
+							t.container.addClass('mejs-keyboard-inactive');
+						}
+					});
+
+					t.globalBind('keydown', function(e) {
+						if ($(e.target).is('.mejs-container') || t.container.has($(e.target)).length) {
+							t.container.removeClass('mejs-keyboard-inactive');
+						}
+					});
 
 					if (t.options.hideVideoControlsOnLoad) {
 						t.hideControls(false);
