@@ -420,7 +420,7 @@
 				$('<span class="mejs-offscreen">' + videoPlayerTitle + '</span>').insertBefore(t.$media);
 				// build container
 				t.container =
-					$('<div id="' + t.id + '" class="mejs-container" ' +
+					$('<div id="' + t.id + '" class="mejs-container mejs-keyboard-inactive" ' +
 						'tabindex="0" role="application" aria-label="' + videoPlayerTitle + '">' +
 						'<div class="mejs-inner">' +
 						'<div class="mejs-mediaelement"></div>' +
@@ -794,7 +794,7 @@
 						// click to play/pause
 						t.media.addEventListener('click', t.clickToPlayPauseCallback, false);
 
-						// show/hide controls
+						// show/hide controls and add/remove outlines fro a11y
 						t.container
 						.on('mouseenter', function () {
 							if (t.controlsEnabled) {
@@ -821,6 +821,13 @@
 									t.startControlsTimer(t.options.controlsTimeoutMouseLeave);
 								}
 							}
+						}).on('click', function() {
+
+							$(this).addClass('mejs-keyboard-inactive');
+
+						}).on('keydown', function() {
+							
+							$(this).removeClass('mejs-keyboard-inactive');
 						});
 					}
 
